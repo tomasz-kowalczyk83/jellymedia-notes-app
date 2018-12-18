@@ -1,0 +1,19 @@
+ip: 192.168.11.11
+memory: 2048
+cpus: 1
+provider: virtualbox
+authorize: ~/.ssh/id_rsa.pub
+keys:
+    - ~/.ssh/id_rsa
+folders:
+    -
+        map: /home/tomskii26/Projects/Laravel/jellymedia-notes-app
+        to: /home/vagrant/code
+sites:
+    -
+        map: jellymedia-notes-app
+        to: /home/vagrant/code/public
+databases:
+    - jellymedia-notes
+name: jellymedia-notes-app
+hostname: jellymedia-notes-app
