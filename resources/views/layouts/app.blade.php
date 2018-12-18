@@ -33,6 +33,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        <li><a href="{{ route('notes.create') }}">Create Note</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
