@@ -6,9 +6,17 @@ Install all the dependencies using composer
 
     composer install
 
+Install Homestead
+
+    php vendor/bin/homestead make    
+
 Start the local development server
 
     vagrant up
+
+Copy the example env file and make the required configuration changes in the .env file
+
+    cp .env.example .env    
 
 Generate a new application key
 
