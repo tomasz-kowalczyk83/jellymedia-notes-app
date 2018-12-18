@@ -19,7 +19,7 @@ class NoteController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the notes.
      *
      * @return \Illuminate\Http\Response
      */
@@ -31,7 +31,7 @@ class NoteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new note.
      *
      * @return \Illuminate\Http\Response
      */
@@ -41,7 +41,7 @@ class NoteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created rnote
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -59,20 +59,7 @@ class NoteController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $note = \App\Note::findOrFail($id);
-
-        return view('notes.show', compact('note'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the note
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -83,10 +70,10 @@ class NoteController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified note
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Note   $note
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Note $note)
@@ -100,15 +87,53 @@ class NoteController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified note
      *
-     * @param  int  $id
+     * @param  Note   $note
      * @return \Illuminate\Http\Response
      */
     public function destroy(Note $note)
+    {
+        $note->forceDelete();
+
+        return redirect()->route('notes.index');
+    }
+
+    /**
+     * Archive the specified note
+     * @param  Note   $note
+     * @return \Illuminate\Http\Response
+     */
+    public function archive(Note $note)
     {
         $note->delete();
 
         return redirect()->route('notes.index');
     }
+
+    /**
+     * Restore archived note
+     * @param  int   $id     Note id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+        $note = Note::onlyTrashed()->findOrFail($id);
+
+        $note->restore();
+
+        return redirect()->route('notes.index');
+    }
+
+    /**
+     * Display a listing of all archived notes.
+     * @return \Illuminate\Http\Response
+     */
+    public function archived()
+    {
+        $notes = Note::onlyTrashed()->where('user_id', \Auth::id())->get();
+
+        return view('notes.index', compact('notes'));
+    }
+
 }

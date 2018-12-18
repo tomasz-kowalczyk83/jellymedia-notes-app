@@ -17,11 +17,20 @@
                                 <p class="card-text">
                                     <small class="text-muted">{{ $note->updated_at->diffForHumans() }}</small>
                                 </p>
-                                <a href="{{ route('notes.edit', $note) }}" class="btn btn-primary btn-sm">edit</a>
-                                {!! Form::open(['route' => ['notes.destroy', $note]]) !!}
-                                    @method('DELETE')
-                                    {!! Form::submit('delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                                {!! Form::close() !!}
+                                @if($note->trashed())
+                                    {!! Form::open(['route' => ['notes.restore', $note]]) !!}
+                                        {!! Form::submit('restore', ['class' => 'btn btn-info btn-sm']) !!}
+                                    {!! Form::close() !!}
+                                @else
+                                    <a href="{{ route('notes.edit', $note) }}" class="btn btn-primary btn-sm">edit</a>
+                                    {!! Form::open(['route' => ['notes.destroy', $note]]) !!}
+                                        @method('DELETE')
+                                        {!! Form::submit('delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                                    {!! Form::close() !!}
+                                    {!! Form::open(['route' => ['notes.archive', $note]]) !!}
+                                        {!! Form::submit('archive', ['class' => 'btn btn-dark btn-sm']) !!}
+                                    {!! Form::close() !!}
+                                @endif
                             </div>
                         </div>
                     </div>

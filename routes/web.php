@@ -17,4 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('notes', 'NoteController');
+Route::resource('notes', 'NoteController')->except('show');
+Route::get('notes/archived', 'NoteController@archived')->name('notes.archived');
+Route::post('notes/{note}/archive', 'NoteController@archive')->name('notes.archive');
+Route::post('notes/{note}/restore', 'NoteController@restore')->name('notes.restore');

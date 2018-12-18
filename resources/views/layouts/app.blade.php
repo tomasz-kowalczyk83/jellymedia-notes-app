@@ -34,6 +34,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li><a href="{{ route('notes.create') }}">Create Note</a></li>
+                        <li><a href="{{ route('notes.archived') }}">Archived Notes</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
