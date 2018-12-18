@@ -55,7 +55,9 @@ class NoteController extends Controller
                  'body'    => $request->body
              ]);
 
-        return redirect()->route('notes.index');
+        return redirect()
+                    ->route('notes.index')
+                    ->with('status', 'Note Created!');
     }
 
     /**
@@ -83,7 +85,9 @@ class NoteController extends Controller
 
         $note->save();
 
-        return redirect()->route('notes.index');
+        return redirect()
+                    ->route('notes.index')
+                    ->with('status', 'Note Updated!');
     }
 
     /**
@@ -96,7 +100,9 @@ class NoteController extends Controller
     {
         $note->forceDelete();
 
-        return redirect()->route('notes.index');
+        return redirect()
+                    ->route('notes.index')
+                    ->with('status', 'Note Deleted!');
     }
 
     /**
@@ -108,7 +114,9 @@ class NoteController extends Controller
     {
         $note->delete();
 
-        return redirect()->route('notes.index');
+        return redirect()
+                    ->route('notes.index')
+                    ->with('status', 'Note Archived!');
     }
 
     /**
@@ -122,7 +130,9 @@ class NoteController extends Controller
 
         $note->restore();
 
-        return redirect()->route('notes.index');
+        return redirect()
+                    ->route('notes.index')
+                    ->with('status', 'Note Restored!');
     }
 
     /**
