@@ -48,6 +48,11 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+
         \Auth::user()
              ->notes()
              ->create([
@@ -80,6 +85,11 @@ class NoteController extends Controller
      */
     public function update(Request $request, Note $note)
     {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+        
         $note->title = $request->title;
         $note->body = $request->body;
 
